@@ -14,9 +14,7 @@ typedef std::string Domain;
 typedef std::string DateOfEntry;
 
 struct ituCountry {
-    /*ituCountry(Number number, Designation designation,
-        AdministrativeRegion administrativeRegion, Country country,
-        Domain domain, DateOfEntry dateOfEntry);*/
+    /* List and format used: http://www.itu.int/online/mm/scripts/gensel8 */
 
     Number number;
     Designation designation;
