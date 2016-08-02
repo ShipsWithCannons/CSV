@@ -36,32 +36,48 @@ struct ituCountry {
     }
 };
 
-std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
-    std::stringstream ss(s);
-    std::string item;
-    while (std::getline(ss, item, delim)) {
-        elems.push_back(item);
-    }
-    return elems;
-}
+class csvReader {
+    std::vector<ituCountry> countries;
 
-std::vector<std::string> split(const std::string &s, char delim) {
-    std::vector<std::string> elems;
-    split(s, delim, elems);
-    return elems;
-}
+  public:
+    void addElement(const ituCountry element) {
+        countries.push_back(element);
+    }
+
+    std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+        std::stringstream ss(s);
+        std::string item;
+        while (std::getline(ss, item, delim)) {
+            elems.push_back(item);
+        }
+        return elems;
+    }
+
+    std::vector<std::string> split(const std::string &s, char delim) {
+        std::vector<std::string> elems;
+        split(s, delim, elems);
+        return elems;
+    }
+
+    void getElements() {
+        for (unsigned int i = 0; i < countries.size(); i++)
+        {
+            std::cout << countries.at(i).printItuCountry();
+        }
+    }
+};
 
 int main()
 {
     std::ifstream  data("data/ITU.csv");
-    std::vector<ituCountry> countries;
     std::string line;
+    csvReader reader;
     while(std::getline(data, line))
     {
         std::stringstream  lineStream(line);
         std::string        cell;
 
-        std::vector<std::string> fields = split( line, ',' );
+        std::vector<std::string> fields = reader.split( line, ',' );
         ituCountry currentCountry;
         currentCountry.number = fields[0];
         currentCountry.designation = fields[1];
@@ -69,10 +85,7 @@ int main()
         currentCountry.country = fields[3];
         currentCountry.domain = fields[4];
         currentCountry.dateOfEntry = fields[5];
-        countries.push_back(currentCountry);
-    }
-    for (unsigned int i = 0; i < countries.size(); i++)
-    {
-        std::cout << countries.at(i).printItuCountry();
+        reader.addElement(currentCountry);
+        reader.getElements();
     }
  }
