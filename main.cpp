@@ -16,6 +16,24 @@ typedef std::string DateOfEntry;
 struct ituCountry {
     /* List and format used: http://www.itu.int/online/mm/scripts/gensel8 */
 
+    ituCountry(){};
+    ituCountry(
+        Number init_number,
+        Designation init_designation,
+        AdministrativeRegion init_administrativeRegion,
+        Country init_country,
+        Domain init_domain,
+        DateOfEntry init_dateOfEntry
+    )
+    {
+        number = init_number;
+        designation = init_designation;
+        administrativeRegion = init_administrativeRegion;
+        country = init_country;
+        domain = init_domain;
+        dateOfEntry = init_dateOfEntry;
+    }
+
     Number number;
     Designation designation;
     AdministrativeRegion administrativeRegion;
@@ -78,13 +96,7 @@ int main()
         std::string        cell;
 
         std::vector<std::string> fields = reader.split( line, ',' );
-        ituCountry currentCountry;
-        currentCountry.number = fields[0];
-        currentCountry.designation = fields[1];
-        currentCountry.administrativeRegion = fields[2];
-        currentCountry.country = fields[3];
-        currentCountry.domain = fields[4];
-        currentCountry.dateOfEntry = fields[5];
+        ituCountry currentCountry(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5]);
         reader.addElement(currentCountry);
         reader.getElements();
     }
