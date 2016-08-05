@@ -16,7 +16,6 @@ typedef std::string DateOfEntry;
 struct ituCountry {
     /* List and format used: http://www.itu.int/online/mm/scripts/gensel8 */
 
-    ituCountry(){};
     ituCountry(
         Number init_number,
         Designation init_designation,
